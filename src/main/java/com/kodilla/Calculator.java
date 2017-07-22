@@ -1,4 +1,4 @@
 package com.kodilla;
 
-public class Calculator {
+public class Calculator1 {
 }
