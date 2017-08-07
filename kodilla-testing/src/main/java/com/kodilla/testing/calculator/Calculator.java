@@ -1,6 +1,6 @@
 package com.kodilla.testing.calculator;
 
-class Calculator {
+public class Calculator {
 
     public Calculator() {
     }
