@@ -1,9 +1,7 @@
 
 package com.kodilla.testing.collection;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.ArrayList;
 
@@ -25,16 +23,13 @@ public class CollectionTestSuite {
         ArrayList<Integer> originalNumbersList = NumbersUtility.randomNumbers(0, 1, 100);
         newList = OddNumbersExterminator.exterminate(originalNumbersList);
 
-        if (newList.size() == 0){
-            System.out.println("Test1 OK");
-        }else{
-            System.out.println("Test1 error");
-        }
+        Assert.assertEquals(newList.size(), 0);
+
     }
 
     @Test
     public void testOddNumbersExterminatorNormalList() {
-        ArrayList<Integer> originalNumbersList = new ArrayList <Integer>();
+        ArrayList<Integer> originalNumbersList = new ArrayList<Integer>();
         ArrayList<Integer> newList;
         Integer a = 2;
         Integer b = 1;
@@ -44,11 +39,8 @@ public class CollectionTestSuite {
 
         newList = OddNumbersExterminator.exterminate(originalNumbersList);
 
-        if ((newList.size() == 1) && (newList.get(0) == b)){
-            System.out.println("Test2 OK");
-        }else{
-            System.out.println("Test2 error");
-        }
+        Assert.assertTrue((newList.size() == 1) && (newList.get(0) == b));
+
     }
 
 }
