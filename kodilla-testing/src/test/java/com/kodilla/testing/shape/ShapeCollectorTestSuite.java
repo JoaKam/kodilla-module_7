@@ -20,16 +20,15 @@ public class ShapeCollectorTestSuite {
         //Given
         ArrayList<Shape> newShapeList = new ArrayList<>();
         ArrayList<Shape> preparedShapeList;
-        Square newSquare = new Square();
+        Square newSquare = new Square(1.0);
         ShapeCollector newShapeColl = new ShapeCollector();
 
+        //When
         preparedShapeList = newShapeColl.addFigure(newShapeList, newSquare);
 
-        //When
-        boolean result = ((preparedShapeList.size() == 1) && (preparedShapeList.get(0).equals(newSquare)));
-
         //Then
-        Assert.assertTrue(result);
+        Assert.assertTrue(preparedShapeList.size() == 1);
+        Assert.assertTrue(preparedShapeList.get(0).equals(newSquare));
     }
 
     @Test
@@ -38,19 +37,18 @@ public class ShapeCollectorTestSuite {
         //Given
         ArrayList<Shape> newShapeList = new ArrayList<Shape>();
         ArrayList<Shape> preparedShapeList;
-        Square newSquare = new Square();
-        Triangle newTriangle = new Triangle();
+        Square newSquare = new Square(1.0);
+        Triangle newTriangle = new Triangle(1.0, 1.0);
         ShapeCollector newShapeColl = new ShapeCollector();
 
+        //When
         preparedShapeList = newShapeColl.addFigure(newShapeList, newSquare);
         preparedShapeList = newShapeColl.addFigure(preparedShapeList, newTriangle);
         preparedShapeList = newShapeColl.removeFigure(preparedShapeList, newSquare);
 
-        //When
-        boolean result = ((preparedShapeList.size() == 1) && (preparedShapeList.get(0).equals(newTriangle)));
-
         //Then
-        Assert.assertTrue(result);
+        Assert.assertTrue(preparedShapeList.size() == 1);
+        Assert.assertTrue(preparedShapeList.get(0).equals(newTriangle));
     }
 
     @Test
@@ -59,18 +57,17 @@ public class ShapeCollectorTestSuite {
         //Given
         ArrayList<Shape> newShapeList = new ArrayList<Shape>();
         ArrayList<Shape> preparedShapeList;
-        Square newSquare = new Square();
-        Triangle newTriangle = new Triangle();
+        Square newSquare = new Square(1.0);
+        Triangle newTriangle = new Triangle(1.0, 1.0);
         ShapeCollector newShapeColl = new ShapeCollector();
 
+        //When
         preparedShapeList = newShapeColl.addFigure(newShapeList, newSquare);
         preparedShapeList = newShapeColl.addFigure(preparedShapeList, newTriangle);
 
-        //When
-        boolean result = ((newShapeColl.getFigure(preparedShapeList, 0).equals(newSquare)) && (newShapeColl.getFigure(preparedShapeList, 1).equals(newTriangle)));
-
         //Then
-        Assert.assertTrue(result);
+        Assert.assertTrue(newShapeColl.getFigure(preparedShapeList, 0).equals(newSquare));
+        Assert.assertTrue(newShapeColl.getFigure(preparedShapeList, 1).equals(newTriangle));
     }
 
 
