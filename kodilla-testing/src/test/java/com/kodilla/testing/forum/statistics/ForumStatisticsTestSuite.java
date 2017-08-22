@@ -60,24 +60,16 @@ public class ForumStatisticsTestSuite {
         when(statisticsMock.usersNames()).thenReturn(usersList);
 
         //When
+        newForumStatistics.calculateAdvStatistics("ForumName");
+
         int postCount = newForumStatistics.getUsersPosts();
         double postsPerUser = newForumStatistics.getPostsPerUser();
         double commentsPerPost = newForumStatistics.getCommentsPerPost();
 
         //Then
-        //assertEquals(1000, postCount);
-        //assertTrue(postsPerUser == 500);
-        //assertTrue(commentsPerPost == (5 / 1000));
+        assertEquals(1000, postCount);
+        assertTrue(postsPerUser == 500);
+        assertTrue(commentsPerPost == (5 / 1000));
     }
 
-
-    /*
-
-    gdy liczba komentarzy = 0
-    gdy liczba komentarzy < liczba postów
-    gdy liczba komentarzy > liczba postów
-    gdy liczba użytkowników = 0
-    gdy liczba użytkowników = 100
-
-     */
 }
