@@ -13,45 +13,45 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 public class BoardTestSuite {
-    public Board prepareTestData() {
+    private Board prepareTestData() {
         //users
         User user1 = new User("developer1", "John Smith");
         User user2 = new User("projectmanager1", "Nina White");
         User user3 = new User("developer2", "Emilia Stephanson");
         User user4 = new User("developer3", "Konrad Bridge");
         //tasks
-        Task task1 = new Task("Microservice for taking temperature",
+        Task taskTakeTemperature = new Task("Microservice for taking temperature",
                 "Write and test the microservice taking\n" +
                         "the temperaure from external service",
                 user1,
                 user2,
                 LocalDate.now().minusDays(20),
                 LocalDate.now().plusDays(30));
-        Task task2 = new Task("HQLs for analysis",
+        Task taskGQL = new Task("HQLs for analysis",
                 "Prepare some HQL queries for analysis",
                 user1,
                 user2,
                 LocalDate.now().minusDays(20),
                 LocalDate.now().minusDays(5));
-        Task task3 = new Task("Temperatures entity",
+        Task taskTempEntity = new Task("Temperatures entity",
                 "Prepare entity for temperatures",
                 user3,
                 user2,
                 LocalDate.now().minusDays(20),
                 LocalDate.now().plusDays(15));
-        Task task4 = new Task("Own logger",
+        Task taskOwnLogger = new Task("Own logger",
                 "Refactor company logger to meet our needs",
                 user3,
                 user2,
                 LocalDate.now().minusDays(10),
                 LocalDate.now().plusDays(25));
-        Task task5 = new Task("Optimize searching",
+        Task taskOptimizeSearch = new Task("Optimize searching",
                 "Archive data searching has to be optimized",
                 user4,
                 user2,
                 LocalDate.now(),
                 LocalDate.now().plusDays(5));
-        Task task6 = new Task("Use Streams",
+        Task taskUseStreams = new Task("Use Streams",
                 "use Streams rather than for-loops in predictions",
                 user4,
                 user2,
@@ -59,14 +59,14 @@ public class BoardTestSuite {
                 LocalDate.now().minusDays(2));
         //taskLists
         TaskList taskListToDo = new TaskList("To do");
-        taskListToDo.addTask(task1);
-        taskListToDo.addTask(task3);
+        taskListToDo.addTask(taskTakeTemperature);
+        taskListToDo.addTask(taskTempEntity);
         TaskList taskListInProgress = new TaskList("In progress");
-        taskListInProgress.addTask(task5);
-        taskListInProgress.addTask(task4);
-        taskListInProgress.addTask(task2);
+        taskListInProgress.addTask(taskOptimizeSearch);
+        taskListInProgress.addTask(taskOwnLogger);
+        taskListInProgress.addTask(taskGQL);
         TaskList taskListDone = new TaskList("Done");
-        taskListDone.addTask(task6);
+        taskListDone.addTask(taskUseStreams);
         //board
         Board project = new Board("Project Weather Prediction");
         project.addTaskList(taskListToDo);
@@ -152,17 +152,14 @@ public class BoardTestSuite {
         long countTimeInDays = project.getTaskLists().stream()
                 .filter(inProgressTasks::contains)
                 .flatMap(tl -> tl.getTasks().stream())
-                .map(t -> t.getCreated())
-                .map(t -> t.until(LocalDate.now(), ChronoUnit.DAYS))
+                .map(t -> t.getCreated().until(LocalDate.now(), ChronoUnit.DAYS))
                 .count();
 
         int sumTimeInDays = project.getTaskLists().stream()
                 .filter(inProgressTasks::contains)
                 .flatMap(tl -> tl.getTasks().stream())
-                .map(t -> t.getCreated())
-                .map(t -> t.until(LocalDate.now(), ChronoUnit.DAYS))
-                .map(t -> toIntExact(t))
-                .mapToInt(t -> t).sum();
+                .map(t -> t.getCreated().until(LocalDate.now(), ChronoUnit.DAYS))
+                .mapToInt(t -> toIntExact(t)).sum();
 
         //Then
         Assert.assertEquals(10, sumTimeInDays / countTimeInDays);
